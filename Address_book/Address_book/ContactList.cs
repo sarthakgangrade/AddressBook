@@ -10,6 +10,11 @@
         public int zip;
         public long phoneNumber;
         public string email;
+
+        public ContactList()
+        {
+        }
+
         public ContactList(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email)
         {
 
