@@ -17,10 +17,18 @@ namespace Address_book
         public long phoneNumber;
         public string email;
 
+        List<ContactList> contactList = new List<ContactList>();
+        //public static Dictionary<string, List<ContactList>> PeopleDictionary = new Dictionary<string, List<ContactList>>();
+        public static Dictionary<string, List<ContactList>> addressBook = new Dictionary<string, List<ContactList>>();
+        public void AddToAddressBook(string addressBookName)
+        {
 
-        //CreateContact() method to create the contact of user with all details
+            addressBook.Add(addressBookName, contactList);
+
+        }
         public void AddContact()
         {
+            
             Console.Write("Enter the First Name::");
             firstName = Console.ReadLine();
             Console.Write("Enter the Last Name::");
