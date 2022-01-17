@@ -27,7 +27,7 @@ namespace Address_book
                 Console.WriteLine();
                 while (keyPress != "n")
                 {
-                    Console.WriteLine("1:AddContact 2:DisplayContact 3:EditContact 4:DeleteContact");
+                    Console.WriteLine("1:AddContact 2:DisplayContact 3:EditContact 4:DeleteContact 5:SearchContactByCity");
                     int choice = Convert.ToInt32(Console.ReadLine());
 
                     switch (choice)
@@ -52,6 +52,9 @@ namespace Address_book
 
                         case 4:
                             user.DeleteConatct();
+                            break;
+                        case 5:
+                            user.SearchWithCity();
                             break;
                     }
                     Console.WriteLine("Do you want to continue ?... Press y/n");
