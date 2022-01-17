@@ -184,5 +184,25 @@ namespace Address_book
             }
 
         }
+        public void SearchWithState()
+        {
+            Console.WriteLine("Please enter the name of the state");
+            string state = Console.ReadLine();
+
+            foreach (var Details in contactList)
+            {
+                //using lambda function checking if given state is presnt or not 
+                var person = contactList.Find(p => p.city.Equals(state));
+                if (person != null)
+                {
+                    //if present then prints firstname and state
+                    Console.WriteLine("{0}:: resides in the {1} state", Details.firstName, state);
+                }
+                else
+                {
+
+                }
+            }
+        }
     }
 }
