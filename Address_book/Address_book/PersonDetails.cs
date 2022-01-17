@@ -163,5 +163,26 @@ namespace Address_book
                 }
             }
         }
+        public void SearchWithCity()
+        {
+            Console.WriteLine("Please enter the name of the city");
+            string city = Console.ReadLine();
+
+            foreach (var Details in contactList)
+            {
+                //using lambda function checking if given city is presnt or not 
+                var person = contactList.Find(p => p.city.Equals(city));
+                if (person != null)
+                {
+                    //if present then prints firstname and city
+                    Console.WriteLine("{0}:: resides in the {1} city", Details.firstName, city);
+                }
+                else
+                {
+
+                }
+            }
+
+        }
     }
 }
