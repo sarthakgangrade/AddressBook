@@ -5,21 +5,12 @@ namespace Address_book
 {
     internal class PersonDetails
     {
-        private LinkedList<ContactList> contactDetails = new LinkedList<ContactList>();
-
-        //instance variables
-        public string firstName;
-        public string lastName;
-        public string address;
-        public string city;
-        public string state;
-        public int zip;
-        public long phoneNumber;
-        public string email;
-
         List<ContactList> contactList = new List<ContactList>();
-        //public static Dictionary<string, List<ContactList>> PeopleDictionary = new Dictionary<string, List<ContactList>>();
+        //creating a dictonianry to add contact to specific address book
         public static Dictionary<string, List<ContactList>> addressBook = new Dictionary<string, List<ContactList>>();
+
+
+        //method to take name of address book and store contact in given address book
         public void AddToAddressBook(string addressBookName)
         {
 
@@ -28,147 +19,148 @@ namespace Address_book
         }
         public void AddContact()
         {
-            
-            Console.Write("Enter the First Name::");
-            firstName = Console.ReadLine();
-            Console.Write("Enter the Last Name::");
-            lastName = Console.ReadLine();
-            Console.Write("Enter the Adresss::");
-            address = Console.ReadLine();
-            Console.Write("Enter the City::");
-            city = Console.ReadLine();
-            Console.Write("Enter the State::");
-            state = Console.ReadLine();
-            Console.Write("Enter the Zip Code::");
-            zip = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Enter the Phone Number::");
-            phoneNumber = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter the Email::");
-            email = Console.ReadLine();
+            //creating object of ContactDetails class
+            ContactList contact = new ContactList();
 
-            //creating object of contactList class
-            ContactList contactList = new ContactList(firstName, lastName, address, city, state, zip, phoneNumber, email);
-            //adding contact details to contact list
-            this.contactDetails.AddLast(contactList);
-        }
+            Console.Write("Enter First Name::");
+            contact.firstName = Console.ReadLine();
+            //passing contactlist and contactDetails class object to check particular contactname is present or not
+            int checkfirstName = SearchDuplicate(contactList, contact);
 
-        //method to display user contact details
-        public void DisplayContact()
-        {
-            Console.WriteLine("\n \n --------- Details of User --------- \n\n");
-            //checking list is empty or not 
-            if (contactDetails.Count == 0)
+            //if checkfirst name is 1 then firstname given by user is not already present in list
+            if (checkfirstName == 1)
             {
-                Console.WriteLine("AddressBook is Empty");
+                Console.Write("Enter Last Name::");
+                contact.lastName = Console.ReadLine();
 
-            }
-            else
-            {
-                //printing the contact details stored in array list
-                foreach (ContactList contactList in this.contactDetails)
-                {
-                    Console.WriteLine($"FirstName= {contactList.firstName} LastName= {contactList.lastName} Address= {contactList.address} City={contactList.city} state= {contactList.state} ZipCode= {contactList.zip} Phone= {contactList.phoneNumber} Email= {contactList.email}");
+                Console.Write("Enter address::");
+                contact.address = Console.ReadLine();
 
-                }
+                Console.Write("Enter phone number::");
+                contact.phoneNumber = Console.ReadLine();
+
+                Console.Write("Enter email ID::");
+                contact.email = Console.ReadLine();
+
+                Console.Write("Enter city Name::");
+                contact.city = Console.ReadLine();
+
+                Console.Write("Enter state Name::");
+                contact.state = Console.ReadLine();
+
+                Console.Write("Enter zip::");
+                contact.zip = Console.ReadLine();
+
+                //adding contact to list
+                contactList.Add(contact);
             }
 
         }
 
-        //method to edit the contact
-        public void editContact()
+        //this method takes the contactlist and ContactDetails class its object as conatct book
+        public static int SearchDuplicate(List<ContactList> contactList, ContactList contactBook)
         {
-            //checking list is empty or not
-            if (contactDetails.Count == 0)
+            foreach (var contactDetails in contactList)                     //loop to iterating through all the elements in contact list 
             {
-                Console.WriteLine("AddressBook is Empty");
+                var person = contactList.Find(p => p.firstName.Equals(contactBook.firstName));       //using lambda checking given name is alredy present or not using equals method
+                                                                                                     //if the name is not null then contact is present already
+                if (person != null)
+                {
+                    Console.WriteLine("Already this contact exist  with current first name::" + person.firstName);
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
 
             }
-            else
+            return 1;
+        }
+
+        //method to display conatct
+        public void DisplayDetails()
+        {
+            Console.WriteLine("------------Conatct Details Are--------:");
+
+            foreach (var conatct in contactList)
             {
-                Console.WriteLine("enter the name which want to edit contact:");
-                string name = Console.ReadLine();
 
-                foreach (ContactList contactList in this.contactDetails)
+                Console.WriteLine("first name = " + conatct.firstName);
+                Console.WriteLine("last name = " + conatct.lastName);
+                Console.WriteLine("address = " + conatct.address);
+                Console.WriteLine("state = " + conatct.state);
+                Console.WriteLine("city = " + conatct.city);
+                Console.WriteLine("zip no = " + conatct.zip);
+                Console.WriteLine("phone number = " + conatct.phoneNumber);
+                Console.WriteLine("email ID = " + conatct.email);
+            }
+        }
+
+        //method to edit user conatct
+        public void EditContact()
+        {
+            Console.WriteLine("Enter the first name of contact you want to edit.");
+            string firstName = Convert.ToString(Console.ReadLine());
+            //iterating  contactlist and checking firstname is already available or not for edit contact 
+            foreach (ContactList contact in contactList)
+            {
+                if (contact.firstName == firstName)
                 {
-                    //checking if name is present in contact list or not 
-                    if (contactList.firstName == name)
-                    {
-                        Console.WriteLine($"FirstName= {contactList.firstName} LastName= {contactList.lastName} Address= {contactList.address} City={contactList.city} state= {contactList.state} ZipCode= {contactList.zip} Phone= {contactList.phoneNumber} Email= {contactList.email}");
-                        Console.WriteLine("\n The {0} is present in contact list and you can edit the details...", contactList.firstName);
-                        Console.WriteLine("enter the details");
+                    //to edit the elements
+                    Console.Write("Enter First Name::");
+                    contact.firstName = Console.ReadLine();
 
-                        Console.WriteLine("Enter the First Name");
-                        contactList.firstName = Console.ReadLine();
+                    Console.Write("Enter Last Name::");
+                    contact.lastName = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Last Name");
-                        contactList.lastName = Console.ReadLine();
+                    Console.Write("Enter address::");
+                    contact.address = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Adresss");
-                        contactList.address = Console.ReadLine();
+                    Console.Write("Enter phone number::");
+                    contact.phoneNumber = Console.ReadLine();
 
-                        Console.WriteLine("Enter the City");
-                        contactList.city = Console.ReadLine();
+                    Console.Write("Enter email ID::");
+                    contact.email = Console.ReadLine();
 
-                        Console.WriteLine("Enter the State");
-                        contactList.state = Console.ReadLine();
+                    Console.Write("Enter city Name::");
+                    contact.city = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Zip Code");
-                        contactList.zip = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Enter state Name::");
+                    contact.state = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Phone Number");
-                        contactList.phoneNumber = Convert.ToInt64(Console.ReadLine());
+                    Console.Write("Enter zip::");
+                    contact.zip = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Email");
-                        contactList.email = Console.ReadLine();
 
-                        Console.WriteLine("updated contact details List");
-                        //printing the changed contact details
-                        Console.WriteLine($"FirstName= {contactList.firstName} LastName= {contactList.lastName} Address= {contactList.address} City={contactList.city} state= {contactList.state} ZipCode= {contactList.zip} Phone Number= {contactList.phoneNumber} Email= {contactList.email}");
-
-                    }
-                    else
-                    {
-
-                        Console.WriteLine("The conatct name {0} is not present in ContactList", contactList.firstName);
-
-                    }
-
+                }
+                else
+                {
+                    Console.WriteLine("No such name found. Please check and try again!");
+                    break;
                 }
             }
         }
 
-        //method for removing the contact details
-        public void removeContact()
+        //method to delete user conatact using name
+        public void DeleteConatct()
         {
-            //condition to check list is empty or not
-            if (contactDetails.Count == 0)
-            {
-                Console.WriteLine("AddressBook is Empty");
+            Console.WriteLine("Enter name of contact you want to delete");
+            string firstName = Convert.ToString(Console.ReadLine());
 
-            }
-            else
+            foreach (ContactList contact in contactList)
             {
-                Console.WriteLine("enter the name you want to remove");
-                string name = Console.ReadLine();
-
-                foreach (ContactList contactList in this.contactDetails)
+                //if contact with first name is found then remove th contact
+                if (contact.firstName == firstName)
                 {
-                    //checking entered name is present in list or not 
-                    if (contactList.firstName == name)
-                    {
-                        //and if present then remove contact
-                        contactDetails.Remove(contactList);
-                        break;
-
-                    }
-                    else
-                    {
-                        //else print the contact is not present in list
-                        Console.WriteLine("the {0} is not present", contactList.firstName);
-
-                    }
+                    contactList.Remove(contact);
+                    Console.WriteLine("Contact Deleted successfully.....");
+                    break;
                 }
-
+                else
+                {
+                    Console.WriteLine("No such conatact name found.. Plea");
+                }
             }
         }
     }

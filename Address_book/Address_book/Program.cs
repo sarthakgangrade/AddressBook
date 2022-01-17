@@ -10,9 +10,6 @@ namespace Address_book
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Welcome to Address Book Program in address book main class in master branch\n");
-            
             Console.WriteLine("Welcome to address book program");
             ContactList contact = new ContactList();
             Console.WriteLine("Enter the number of Address Books you want to add:");
@@ -30,51 +27,44 @@ namespace Address_book
                 Console.WriteLine();
                 while (keyPress != "n")
                 {
-                    Console.WriteLine("1.AddContact.  2.DisplayContact \t 3.EditContact \t 4.RemoveContact");
-                    Console.WriteLine("Please enter your choice to perform specific operation::");
+                    Console.WriteLine("1:AddContact 2:DisplayContact 3:EditContact 4:DeleteContact");
                     int choice = Convert.ToInt32(Console.ReadLine());
 
                     switch (choice)
                     {
+
                         case 1:
-                            Console.WriteLine("\n Enter how many contacts you want to add::");
-                            int n = Convert.ToInt32(Console.ReadLine());
-                            for (int i = 0; i < n; i++)
+                            Console.WriteLine("Enter how many contacts you want to add to address book::");
+                            int number = Convert.ToInt32(Console.ReadLine());
+                            for (int i = 0; i < number; i++)
                             {
                                 user.AddContact();
-                                Console.WriteLine("\n ");
                             }
-
                             break;
 
                         case 2:
-                            user.DisplayContact();
+                            user.DisplayDetails();
                             break;
 
                         case 3:
-                            user.editContact();
+                            user.EditContact();
                             break;
 
                         case 4:
-                            user.removeContact();
-                            break;
-
-                        default:
-                            Console.WriteLine("Invalid choice");
+                            user.DeleteConatct();
                             break;
                     }
-
                     Console.WriteLine("Do you want to continue ?... Press y/n");
                     keyPress = Console.ReadLine();
+
                 }
-
-
                 user.AddToAddressBook(addressBookName);
                 noOfBooks++;
+
             }
+
+
         }
     }
 }
 
-
-            
